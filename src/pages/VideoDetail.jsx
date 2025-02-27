@@ -25,7 +25,9 @@ function VideoDetail() {
     const hasNextPage = useSelector((state) => state.comment?.hasNextPage);
     const loading = useSelector((state) => state.comment?.loading);
     const [page, setPage] = useState(1);
-
+    // console.log(video);
+    // const video=vidio[0]
+    // console.log(video);
     useEffect(() => {
         if (videoId) {
             dispatch(getVideoById({ videoId }));
@@ -46,11 +48,11 @@ function VideoDetail() {
         <>
             <Navbar />
             <Video
-                src={video?.videoFile?.url}
-                poster={video?.thumbnail?.url}
+                src={video?.vidioFile}
+                poster={video?.thumbnail}
             />
             <Description
-                avatar={video?.owner?.avatar.url}
+                avatar={video?.owner?.avtar}
                 channelName={video?.owner?.username}
                 createdAt={video?.createdAt}
                 description={video?.description}

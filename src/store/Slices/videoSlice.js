@@ -19,19 +19,18 @@ export const getAllVideos = createAsyncThunk(
     "getAllVideos",
     async ({ userId, sortBy, sortType, query, page, limit }) => {
         try {
-            const url = new URL(`${BASE_URL}/video`);
+            const url = new URL(`${BASE_URL}/vidios`);
 
             if (userId) url.searchParams.set("userId", userId);
-            if (query) url.searchParams.set("query", query);
+             url.searchParams.set("query", query?query:"");
             if (page) url.searchParams.set("page", page);
             if (limit) url.searchParams.set("limit", limit);
             if (sortBy && sortType) {
                 url.searchParams.set("sortBy", sortBy);
                 url.searchParams.set("sortType", sortType);
             }
-
             const response = await axiosInstance.get(url);
-
+            // console.log(response.data.data);
             return response.data.data;
         } catch (error) {
             toast.error(error?.response?.data?.error);
@@ -97,7 +96,7 @@ export const getVideoById = createAsyncThunk(
     "getVideoById",
     async ({ videoId }) => {
         try {
-            const response = await axiosInstance.get(`/video/v/${videoId}`);
+            const response = await axiosInstance.get(`/vidios/${videoId}`);
             return response.data.data;
         } catch (error) {
             toast.error(error?.response?.data?.error);
@@ -140,7 +139,8 @@ const videoSlice = createSlice({
         });
         builder.addCase(getAllVideos.fulfilled, (state, action) => {
             state.loading = false;
-            state.videos.docs = [...state.videos.docs, ...action.payload.docs];
+            // console.log(action.payload);
+            state.videos.docs = [...state.videos.docs, ...action.payload];
             state.videos.hasNextPage = action.payload.hasNextPage;
         });
         builder.addCase(publishAvideo.pending, (state) => {

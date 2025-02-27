@@ -30,17 +30,17 @@ function LikedVideos() {
                 <div className="grid max-h-screen overflow-y-scroll lg:grid-cols-3 sm:grid-cols-2 text-white mb-20 sm:mb-0">
                     {likedVideos?.map((video) => (
                         <VideoList
-                            key={video.likedVideo._id}
-                            avatar={video.likedVideo.ownerDetails?.avatar?.url}
-                            duration={video.likedVideo.duration}
-                            title={video.likedVideo.title}
-                            thumbnail={video.likedVideo.thumbnail?.url}
-                            createdAt={video.likedVideo.createdAt}
-                            views={video.likedVideo.views}
+                            key={video.vidiodetails._id}
+                            avatar={video.vidiodetails.ownerDetails?.avtar}
+                            duration={video.vidiodetails.duration}
+                            title={video.vidiodetails.title}
+                            thumbnail={video.vidiodetails.thumbnail?.url}
+                            createdAt={video.vidiodetails.createdAt}
+                            views={video.vidiodetails.views}
                             channelName={
-                                video.likedVideo.ownerDetails?.username
+                                video.vidiodetails.ownerDetails?.username
                             }
-                            videoId={video.likedVideo._id}
+                            videoId={video.vidiodetails._id}
                         />
                     ))}
                 </div>

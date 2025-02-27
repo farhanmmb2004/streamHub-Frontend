@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
+import Axios from 'axios'
 
 const initialState = {
     loading: false,
@@ -36,7 +37,7 @@ export const userLogin = createAsyncThunk("login", async (data) => {
         console.log(data);
         console.log(axiosInstance.defaults)
         const response = await axiosInstance.post("/users/login", data);
-        return response.data.data.user;
+        return response.data.data;
     } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.error);
