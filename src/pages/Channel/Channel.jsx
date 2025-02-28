@@ -14,15 +14,15 @@ function Channel() {
     }, [dispatch, username]);
 
     window.scrollTo(0, 0);
-
+     console.log(channel);
     return (
         <>
             {channel && (
                 <ChannelHeader
                     username={username}
-                    coverImage={channel?.coverImage.url}
-                    avatar={channel?.avatar.url}
-                    subscribedCount={channel?.channelsSubscribedToCount}
+                    coverImage={channel?.coverImage}
+                    avatar={channel?.avtar}
+                    subscribedCount={channel?.channelSubscribedToCount}
                     fullName={channel?.fullName}
                     subscribersCount={channel?.subcribersCount}
                     isSubscribed={channel?.isSubscribed}

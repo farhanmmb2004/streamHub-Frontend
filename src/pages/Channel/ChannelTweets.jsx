@@ -12,14 +12,14 @@ function ChannelTweets() {
     useEffect(() => {
         if (userId) dispatch(getUserTweets(userId));
     }, [dispatch, userId]);
-
+    // console.log(tweets);
     return (
         <>
             {authId === userId && <TweetAndComment tweet={true}/>}
             {tweets?.map((tweet) => (
                 <TweetsList
                     key={tweet?._id}
-                    avatar={tweet?.ownerDetails?.avatar.url}
+                    avatar={tweet?.ownerDetails?.avtar}
                     content={tweet?.content}
                     createdAt={tweet?.createdAt}
                     likesCount={tweet?.likesCount}

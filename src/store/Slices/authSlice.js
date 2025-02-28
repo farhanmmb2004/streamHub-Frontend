@@ -76,14 +76,15 @@ export const changePassword = createAsyncThunk(
     "changePassword",
     async (data) => {
         try {
-            const response = await axiosInstance.post(
+            const response = await axiosInstance.patch(
                 "/users/change-password",
                 data
             );
             toast.success(response.data?.message);
             return response.data;
         } catch (error) {
-            toast.error(error?.response?.data?.error);
+            console.error(error);
+            toast.error("");
             throw error;
         }
     }
@@ -97,12 +98,14 @@ export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
 export const updateAvatar = createAsyncThunk("updateAvatar", async (avatar) => {
     try {
         const response = await axiosInstance.patch(
-            "/users/update-avatar",
+            "/users/avtar",
             avatar
         );
+        console.log(response);
         toast.success("Updated details successfully!!!");
         return response.data.data;
     } catch (error) {
+
         toast.error(error?.response?.data?.error);
         throw error;
     }
@@ -113,7 +116,7 @@ export const updateCoverImg = createAsyncThunk(
     async (coverImage) => {
         try {
             const response = await axiosInstance.patch(
-                "/users/update-coverImg",
+                "/users/coverImage",
                 coverImage
             );
             toast.success(response.data?.message);
@@ -130,13 +133,14 @@ export const updateUserDetails = createAsyncThunk(
     async (data) => {
         try {
             const response = await axiosInstance.patch(
-                "/users/update-user",
+                "/users/account-info",
                 data
             );
             toast.success("Updated details successfully!!!");
             return response.data;
         } catch (error) {
-            toast.error(error?.response?.data?.error);
+            console.error(error);
+            toast.error(error?.message);
             throw error;
         }
     }

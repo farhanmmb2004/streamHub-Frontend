@@ -15,7 +15,7 @@ function EditPersonalInfo() {
     const auth = useSelector((state) => state.auth?.userData);
 
     useEffect(() => {
-        setValue("fullName", auth?.fullName);
+        setValue("fullName", auth?.fullname);
         setValue("email", auth?.email);
     }, [auth, setValue]);
 

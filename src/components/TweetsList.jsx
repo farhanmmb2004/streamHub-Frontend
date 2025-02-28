@@ -15,7 +15,7 @@ function TweetsList({
     likesCount = 0,
     isLiked,
 }) {
-    const avatar2 = useSelector((state) => state.user?.profileData?.avatar.url);
+    const avatar2 = useSelector((state) => state.user?.profileData?.avtar);
     const authUsername = useSelector((state) => state.auth?.userData?.username);
     const dispatch = useDispatch();
 
@@ -27,6 +27,7 @@ function TweetsList({
     });
 
     const handleEditTweet = (editedContent) => {
+        console.log(content);
         dispatch(editTweet({ tweetId, content: editedContent }));
         setEditState((prevState) => ({
             ...prevState,

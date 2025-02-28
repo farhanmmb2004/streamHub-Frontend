@@ -27,7 +27,6 @@ function ChannelPlaylist() {
             dispatch(getPlaylistsByUser(userId));
         }
     }, [dispatch, userId]);
-
     const createPlaylist = (data) => {
         dispatch(createAPlaylist(data));
         setOpenCreatePlaylist((prev) => !prev);
@@ -109,18 +108,18 @@ function ChannelPlaylist() {
                     {playlists?.map((playlist) => (
                         <Link
                             to={`/playlist/${playlist._id}`}
-                            key={playlist.id}
+                            key={playlist._id}
                             className="relative h-[15rem] w-full border border-slate-500"
                         >
                             <div className="absolute flex justify-between bottom-0 left-0 border-t py-1 px-2 w-full backdrop-contrast-75">
                                 <div className="flex flex-col gap-1">
                                     <h1 className="text-lg">Playlist</h1>
                                     <div className="text-xs text-slate-300">
-                                        {playlist.totalViews} Views &nbsp;
+                                        {playlist.veiws} Views &nbsp;
                                         {timeAgo(playlist.updatedAt)}
                                     </div>
                                 </div>
-                                <p>{playlist.totalVideos} Videos</p>
+                                <p>{playlist.totalVidios} Videos</p>
                             </div>
                             <div className=" py-1 px-2">
                                 <p className="text-sm font-bold">
