@@ -13,7 +13,7 @@ function VideoList({
     videoId,
 }) {
     const navigate = useNavigate();
-
+    // console.log(views);
     const handleAvatarClick = (e) => {
         e.stopPropagation();
         navigate(`/channel/${channelName}`);

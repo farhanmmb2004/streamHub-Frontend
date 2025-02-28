@@ -34,7 +34,7 @@ function LikedVideos() {
                             avatar={video.vidiodetails.ownerDetails?.avtar}
                             duration={video.vidiodetails.duration}
                             title={video.vidiodetails.title}
-                            thumbnail={video.vidiodetails.thumbnail?.url}
+                            thumbnail={video.vidiodetails.thumbnail}
                             createdAt={video.vidiodetails.createdAt}
                             views={video.vidiodetails.views}
                             channelName={

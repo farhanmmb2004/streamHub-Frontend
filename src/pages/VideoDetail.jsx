@@ -25,9 +25,6 @@ function VideoDetail() {
     const hasNextPage = useSelector((state) => state.comment?.hasNextPage);
     const loading = useSelector((state) => state.comment?.loading);
     const [page, setPage] = useState(1);
-    // console.log(video);
-    // const video=vidio[0]
-    // console.log(video);
     useEffect(() => {
         if (videoId) {
             dispatch(getVideoById({ videoId }));

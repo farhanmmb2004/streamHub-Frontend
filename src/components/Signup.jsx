@@ -19,20 +19,47 @@ function SignUp() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth?.loading);
 
-  const submit = async (data) => {
-    const response = await dispatch(createAccount(data));
-    if (response?.payload?.success) {
-      const username = data?.username;
-      const password = data?.password;
-      const loginResult = await dispatch(userLogin({ username, password }));
+  // const submit = async (data) => {
+  //   console.log('hey');
+  //   const response = await dispatch(createAccount(data));
+  //   if (response?.payload?.success) {
+  //     const username = data?.username;
+  //     const password = data?.password;
+  //     const loginResult = await dispatch(userLogin({ username, password }));
 
-      if (loginResult?.type === "login/fulfilled") {
-        navigate("/terms&conditions");
-      } else {
-        navigate("/login");
-      }
+  //     if (loginResult?.type === "login/fulfilled") {
+  //       navigate("/terms&conditions");
+  //     } else {
+  //       navigate("/login");
+  //     }
+  //   }
+  // };
+  const submit = async (data) => {
+    console.log("Submitting Form Data:", data); // Debugging step
+
+    try {
+        const response = await dispatch(createAccount(data));
+        console.log("Create Account Response:", response);
+
+        if (response?.payload?.success) {
+            const username = data?.username;
+            const password = data?.password;
+            
+            const loginResult = await dispatch(userLogin({ username, password }));
+            console.log("Login Result:", loginResult);
+
+            if (loginResult?.type === "login/fulfilled") {
+                navigate("/terms&conditions");
+            } else {
+                navigate("/login");
+            }
+        } else {
+            console.error("Account creation failed:", response?.payload?.message);
+        }
+    } catch (error) {
+        console.error("Signup Error:", error);
     }
-  };
+};
 
   if (loading) {
     return <LoginSkeleton />;
