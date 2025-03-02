@@ -7,6 +7,7 @@ import {
 } from "../../components/icons";
 
 function StatsSection({ dashboard }) {
+    // console.log(dashboard);
     return (
         <>
             <section className="grid sm:grid-cols-4 grid-cols-2 justify-evenly items-center gap-2">
@@ -17,7 +18,7 @@ function StatsSection({ dashboard }) {
                     />
                     <p>Total Videos</p>
                     <span className="font-bold text-2xl">
-                        {dashboard?.totalVideos}
+                        {dashboard?.totalVidios}
                     </span>
                 </div>
                 <div className="border border-slate-500 sm:p-3 p-2">
@@ -37,7 +38,7 @@ function StatsSection({ dashboard }) {
                     />
                     <p>Total subscribers</p>
                     <span className="font-bold text-2xl">
-                        {dashboard?.totalSubscribers}
+                        {dashboard?.subscribers}
                     </span>
                 </div>
                 <div className="border border-slate-500 sm:p-3 p-2">
