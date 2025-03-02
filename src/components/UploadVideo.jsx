@@ -28,7 +28,15 @@ function UploadVideo({ setUploadVideoPopup }) {
             setVideoFile(file);
             setVideoName(file.name);
             setVideoSize(Math.floor(file.size / (1024 * 1024)));
-            setValue("videoFile", file); // Manually set file in react-hook-form
+            setValue("vidio", file); // Use "vidio" to match backend field name
+        }
+    };
+
+    const handleThumbnailChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setThumbnail(file);
+            setValue("thumbnail", file);
         }
     };
 
@@ -38,9 +46,15 @@ function UploadVideo({ setUploadVideoPopup }) {
             return;
         }
 
+        if (!thumbnail) {
+            alert("Please select a thumbnail");
+            return;
+        }
+
         const formData = {
             ...data,
-            videoFile,
+            vidio: videoFile,    // Use "vidio" to match backend field name
+            thumbnail: thumbnail
         };
 
         await dispatch(publishAvideo(formData));
@@ -100,13 +114,10 @@ function UploadVideo({ setUploadVideoPopup }) {
                                 type="file"
                                 accept="video/*"
                                 className="hidden"
-                                {...register("videoFile", {
-                                    required: "VideoFile is required",
-                                })}
                                 onChange={handleFileChange}
                             />
                             <input className="sm:w-3/4 w-full text-center h-10 bg-transparent text-white outline-none" value={videoName} readOnly />
-                            <span className="text-red-500 text-xs">{errors.videoFile?.message}</span>
+                            <span className="text-red-500 text-xs">{errors.vidio?.message}</span>
                         </div>
 
                         <div className="space-y-5 mt-2 w-full grid lg:grid-cols-2 grid-cols-1 lg:gap-10 justify-start items-start">
@@ -116,7 +127,7 @@ function UploadVideo({ setUploadVideoPopup }) {
                                     type="file"
                                     accept="image/*"
                                     className="w-full border p-2 bg-transparent text-white"
-                                    onChange={(e) => setThumbnail(e.target.files[0])}
+                                    onChange={handleThumbnailChange}
                                 />
                                 {thumbnail && (
                                     <img
@@ -138,6 +149,20 @@ function UploadVideo({ setUploadVideoPopup }) {
                                     })}
                                 />
                                 <span className="text-red-500 text-xs">{errors.title?.message}</span>
+
+                                <Input2
+                                    type="number"
+                                    label="Duration (seconds) *"
+                                    className="mb-2"
+                                    {...register("duration", {
+                                        required: "Duration is required",
+                                        min: {
+                                            value: 1,
+                                            message: "Duration must be at least 1 second"
+                                        }
+                                    })}
+                                />
+                                <span className="text-red-500 text-xs">{errors.duration?.message}</span>
 
                                 <div>
                                     <label>Description *</label>

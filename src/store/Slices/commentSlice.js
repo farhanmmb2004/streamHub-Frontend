@@ -29,11 +29,11 @@ export const createAComment = createAsyncThunk(
 
 export const editAComment = createAsyncThunk(
     "editAComment",
-    async ({ commentId, content }) => {
+    async ({ commentId, newContent }) => {
         try {
             const response = await axiosInstance.patch(
-                `/comment/c/${commentId}`,
-                { content }
+                `/comments/c/${commentId}`,
+                { newContent }
             );
             toast.success(response.data?.message);
             return response.data.data;
@@ -49,7 +49,7 @@ export const deleteAComment = createAsyncThunk(
     async (commentId) => {
         try {
             const response = await axiosInstance.delete(
-                `/comment/c/${commentId}`
+                `/comments/c/${commentId}`
             );
             toast.success(response.data.message);
             console.log(response.data.data);

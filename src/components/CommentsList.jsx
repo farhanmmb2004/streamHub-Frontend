@@ -27,7 +27,7 @@ function CommentsList({
 
     const handleEditComment = (editedContent) => {
         console.log(editedContent);
-        dispatch(editAComment({ commentId, content: editedContent }));
+        dispatch(editAComment({ commentId, newContent: editedContent }));
         setEditState((prevState) => ({
             ...prevState,
             editing: false,

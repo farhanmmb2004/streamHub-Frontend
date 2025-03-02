@@ -3,6 +3,7 @@ import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../constants";
 
+
 const initialState = {
     loading: false,
     uploading: false,
@@ -29,10 +30,11 @@ export const getAllVideos = createAsyncThunk(
                 url.searchParams.set("sortBy", sortBy);
                 url.searchParams.set("sortType", sortType);
             }
-            const response = await axiosInstance.get(url);
-            // console.log(response.data.data);
+            const response = await axiosInstance.get(url,{ withCredentials: true });
+            console.log(response.data.data);
             return response.data.data;
         } catch (error) {
+            console.error(error);
             toast.error(error?.response?.data?.error);
             throw error;
         }
@@ -40,17 +42,23 @@ export const getAllVideos = createAsyncThunk(
 );
 
 export const publishAvideo = createAsyncThunk("publishAvideo", async (data) => {
+    console.log("submitting");
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("videoFile", data.videoFile[0]);
-    formData.append("thumbnail", data.thumbnail[0]);
-
+    formData.append("duration", data.duration);
+    formData.append("vidio", data.vidio); // Changed from videoFile to vidio
+    formData.append("thumbnail", data.thumbnail);
+    
+    console.log("submitting");
     try {
-        const response = await axiosInstance.post("/video", formData);
+        console.log("submitting");
+        const response = await axiosInstance.post("/vidios", formData);
+        console.log("submitting");
         toast.success(response?.data?.message);
         return response.data.data;
     } catch (error) {
+        console.log(error);
         toast.error(error?.response?.data?.error);
         throw error;
     }
