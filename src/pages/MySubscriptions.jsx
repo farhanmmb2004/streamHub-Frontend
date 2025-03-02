@@ -16,23 +16,23 @@ function MySubscriptions() {
         }
     }, [dispatch, subscriberId]);
     window.scrollTo(0, 0);
-    
+    // console.log(subscriptions);
     return (
         <>
             <div className="flex gap-2 p-2 text-white items-center bg-[#222222]">
                 {subscriptions?.map((subscription) => (
                     <div
-                        key={subscription?.subscribedChannel?._id}
+                        key={subscription?.channelDetails?._id}
                         className="flex flex-col items-center overflow-x-scroll"
                     >
                         <Avatar
-                            src={subscription?.subscribedChannel?.avatar.url}
+                            src={subscription?.channelDetails?.avtar}
                             channelName={
-                                subscription?.subscribedChannel?.username
+                                subscription?.channelDetails?.username
                             }
                         />
                         <h5 className="text-xs">
-                            {subscription?.subscribedChannel?.username}
+                            {subscription?.channelDetails?.username}
                         </h5>
                     </div>
                 ))}
@@ -41,41 +41,34 @@ function MySubscriptions() {
             <div className="text-white mb-20 sm:mb-0 w-full grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 overflow-y-scroll">
                 {subscriptions?.map((subscription) => (
                     <Link
-                        to={`/watch/${subscription?.subscribedChannel?.latestVideo?._id}`}
-                        key={subscription?.subscribedChannel?._id}
-                    >
-                        {subscription?.subscribedChannel?.latestVideo && (
+                        to={`/watch/${subscription?.channelDetails?.latestvidio?._id}`}
+                        key={subscription?.channelDetails?.latestvidio?._id}>
+                        {subscription?.channelDetails?.latestvidio && (
                             <VideoList
-                                key={subscription?.subscribedChannel?._id}
+                                key={subscription?.channelDetails?._id}
                                 avatar={
-                                    subscription?.subscribedChannel?.avatar.url
+                                    subscription?.channelDetails?.avtar
                                 }
                                 duration={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?.duration
+                                    subscription?.channelDetails?.latestvidio?.duration
                                 }
                                 title={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?.title
+                                    subscription?.channelDetails?.latestvidio?.title
                                 }
                                 thumbnail={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?.thumbnail?.url
+                                    subscription?.channelDetails?.latestvidio?.thumbnail
                                 }
                                 createdAt={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?.createdAt
+                                    subscription?.channelDetails?.latestvidio?.createdAt
                                 }
                                 views={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?.views
+                                    subscription?.channelDetails?.latestvidio?.views
                                 }
                                 channelName={
-                                    subscription?.subscribedChannel?.username
+                                    subscription?.channelDetails?.username
                                 }
                                 videoId={
-                                    subscription?.subscribedChannel?.latestVideo
-                                        ?._id
+                                    subscription?.channelDetails?.latestvidio?._id
                                 }
                             />
                         )}

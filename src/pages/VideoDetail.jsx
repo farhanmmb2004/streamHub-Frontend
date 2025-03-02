@@ -30,7 +30,7 @@ function VideoDetail() {
             dispatch(getVideoById({ videoId }));
             dispatch(getVideoComments({ videoId }));
         }
-
+        // console.log(comments);
         return () => dispatch(cleanUpComments());
     }, [dispatch, videoId]);
 
@@ -78,14 +78,14 @@ function VideoDetail() {
                     {comments?.map((comment) => (
                         <CommentList
                             key={comment?._id}
-                            avatar={comment?.owner?.avatar?.url}
+                            avatar={comment?.ownerDetails?.avtar}
                             commentId={comment?._id}
                             content={comment?.content}
                             createdAt={comment?.createdAt}
-                            fullName={comment?.owner?.fullName}
+                            fullName={comment?.ownerDetails?.fullName}
                             isLiked={comment?.isLiked}
                             likesCount={comment?.likesCount}
-                            username={comment?.owner?.username}
+                            username={comment?.ownerDetails?.username}
                         />
                     ))}
                     {loading && (
