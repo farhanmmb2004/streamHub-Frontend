@@ -26,9 +26,12 @@ export const getChannelVideos = createAsyncThunk(
     "getChannelVideos",
     async () => {
         try {
-            const response = await axiosInstance.get('/dashboard/videos');
+            console.log('called');
+            const response = await axiosInstance.get('/dashboard/vidios');
+            console.log(response.data);    
             return response.data.data;
         } catch (error) {
+            console.error(error);
             toast.error(error?.response?.data?.error);
             throw error;
         }

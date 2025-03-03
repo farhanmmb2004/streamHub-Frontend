@@ -49,16 +49,11 @@ export const publishAvideo = createAsyncThunk("publishAvideo", async (data) => {
     formData.append("duration", data.duration);
     formData.append("vidio", data.vidio); // Changed from videoFile to vidio
     formData.append("thumbnail", data.thumbnail);
-    
-    console.log("submitting");
     try {
-        console.log("submitting");
         const response = await axiosInstance.post("/vidios", formData);
-        console.log("submitting");
         toast.success(response?.data?.message);
         return response.data.data;
     } catch (error) {
-        console.log(error);
         toast.error(error?.response?.data?.error);
         throw error;
     }
@@ -71,15 +66,17 @@ export const updateAVideo = createAsyncThunk(
         formData.append("title", data.title);
         formData.append("description", data.description);
         formData.append("thumbnail", data.thumbnail[0]);
-
+   console.log(data);
         try {
             const response = await axiosInstance.patch(
-                `/video/v/${videoId}`,
+                `/vidios/${videoId}`,
                 formData
             );
+            console.log(response.data);
             toast.success(response?.data?.message);
             return response.data.data;
         } catch (error) {
+            console.error(error);
             toast.error(error?.response?.data?.error);
             throw error;
         }
@@ -90,10 +87,12 @@ export const deleteAVideo = createAsyncThunk(
     "deleteAVideo",
     async (videoId) => {
         try {
-            const response = await axiosInstance.delete(`/video/v/${videoId}`);
+            const response = await axiosInstance.delete(`/vidios/${videoId}`);
+            console.log(response.data);
             toast.success(response?.data?.message);
             return response.data.data;
         } catch (error) {
+            console.error(error);
             toast.error(error?.response?.data?.error);
             throw error;
         }
@@ -118,7 +117,7 @@ export const togglePublishStatus = createAsyncThunk(
     async (videoId) => {
         try {
             const response = await axiosInstance.patch(
-                `/video/toggle/publish/${videoId}`
+                `/vidios/toggle-publish/${videoId}`
             );
             toast.success(response.data.message);
             return response.data.data.isPublished;
@@ -147,8 +146,7 @@ const videoSlice = createSlice({
         });
         builder.addCase(getAllVideos.fulfilled, (state, action) => {
             state.loading = false;
-            // console.log(action.payload);
-            state.videos.docs = [...state.videos.docs, ...action.payload];
+            state.videos.docs = [...state.videos.docs, ...action.payload.docs];
             state.videos.hasNextPage = action.payload.hasNextPage;
         });
         builder.addCase(publishAvideo.pending, (state) => {

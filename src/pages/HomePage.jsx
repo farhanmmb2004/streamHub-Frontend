@@ -36,13 +36,13 @@ function HomePage() {
                     {videos?.map((video) => (
                         <VideoList
                             key={video._id}
-                            avatar={video.videoBy?.avtar}
+                            avatar={video.ownerDetails?.avtar}
                             duration={video.duration}
                             title={video.title}
                             thumbnail={video.thumbnail}
                             createdAt={video.createdAt}
                             views={video.views}
-                            channelName={video.videoBy.username}
+                            channelName={video.ownerDetails.username}
                             videoId={video._id}
                         />
                     ))}
