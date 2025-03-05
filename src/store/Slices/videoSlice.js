@@ -31,11 +31,10 @@ export const getAllVideos = createAsyncThunk(
                 url.searchParams.set("sortType", sortType);
             }
             const response = await axiosInstance.get(url,{ withCredentials: true });
-            console.log(response.data.data);
             return response.data.data;
         } catch (error) {
             console.error(error);
-            toast.error(error?.response?.data?.error);
+            toast.error("make sure you are logged in");
             throw error;
         }
     }

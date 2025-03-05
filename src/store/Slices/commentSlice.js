@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from "react-hot-toast";
+
 import { BASE_URL } from "../../constants";
 
 const initialState = {
@@ -19,6 +20,7 @@ export const createAComment = createAsyncThunk(
                 content,
             });
             // console.log(response.data.data);
+            toast.success(response.data?.message);
             return response.data.data;
         } catch (error) {
             toast.error(error?.response?.data?.error);

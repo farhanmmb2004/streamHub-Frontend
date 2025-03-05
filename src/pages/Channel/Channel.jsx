@@ -14,7 +14,6 @@ function Channel() {
     }, [dispatch, username]);
 
     window.scrollTo(0, 0);
-     console.log(channel);
     return (
         <>
             {channel && (
@@ -24,7 +23,7 @@ function Channel() {
                     avatar={channel?.avtar}
                     subscribedCount={channel?.channelSubscribedToCount}
                     fullName={channel?.fullName}
-                    subscribersCount={channel?.subcribersCount}
+                    subscribersCount={channel?.subscribersCount }
                     isSubscribed={channel?.isSubscribed}
                     channelId={channel?._id}
                 />

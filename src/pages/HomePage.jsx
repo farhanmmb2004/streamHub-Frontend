@@ -16,7 +16,7 @@ function HomePage() {
     useEffect(() => {
         dispatch(getAllVideos({}));
 
-        return () => dispatch(makeVideosNull());
+        return () => dispatch(makeVideosNull());       
     }, [dispatch]);
 
     const fetchMoreVideos = useCallback(() => {
