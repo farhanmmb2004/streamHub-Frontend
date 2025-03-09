@@ -30,11 +30,16 @@ export const getAllVideos = createAsyncThunk(
                 url.searchParams.set("sortBy", sortBy);
                 url.searchParams.set("sortType", sortType);
             }
+            const timeoutId = setTimeout(() => {
+                toast.error("Please wait for a minute, server is starting");
+            }, 7000);
             const response = await axiosInstance.get(url,{ withCredentials: true });
+            clearTimeout(timeoutId);
             return response.data.data;
         } catch (error) {
+            clearTimeout(timeoutId);
+            toast.error("Error fetching videos");
             console.error(error);
-            toast.error("make sure you are logged in");
             throw error;
         }
     }

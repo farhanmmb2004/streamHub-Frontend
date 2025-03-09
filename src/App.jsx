@@ -24,7 +24,6 @@ import { EditPersonalInfo, ChangePassword, Layout } from "./components";
 
 function App() {
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getCurrentUser());
     }, [dispatch]);
