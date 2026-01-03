@@ -19,6 +19,8 @@ const initialState = {
 export const getAllVideos = createAsyncThunk(
     "getAllVideos",
     async ({ userId, sortBy, sortType, query, page, limit }) => {
+        let timeoutId;
+        let toastId;
         try {
             const url = new URL(`${BASE_URL}/vidios`);
 
@@ -30,14 +32,25 @@ export const getAllVideos = createAsyncThunk(
                 url.searchParams.set("sortBy", sortBy);
                 url.searchParams.set("sortType", sortType);
             }
-            const timeoutId = setTimeout(() => {
-                toast.error("Please wait for a minute, server is starting");
-            }, 7000);
+            
+            timeoutId = setTimeout(() => {
+                toastId = toast.loading("Server is waking up, please wait for a minute...", {
+                    duration: Infinity,
+                });
+            }, 5000);
+            
             const response = await axiosInstance.get(url,{ withCredentials: true });
+            
             clearTimeout(timeoutId);
+            if (toastId) {
+                toast.dismiss(toastId);
+            }
             return response.data.data;
         } catch (error) {
             clearTimeout(timeoutId);
+            if (toastId) {
+                toast.dismiss(toastId);
+            }
             toast.error("Error fetching videos");
             console.error(error);
             throw error;

@@ -12,23 +12,36 @@ const initialState = {
 export const createAccount = createAsyncThunk("register", async (data) => {
     try {
         const response = await axiosInstance.post("/users/register", data);
-        console.log(response.data);
         toast.success("Registered successfully!!!");
         return response.data;
     } catch (error) {
-        console.log(error);
         toast.error(error?.response?.data?.error);
         throw error;
     }
 });
 
 export const userLogin = createAsyncThunk("login", async (data) => {
+    let timeoutId;
+    let toastId;
     try {
-        console.log(data);
-        console.log(axiosInstance.defaults)
+        timeoutId = setTimeout(() => {
+            toastId = toast.loading("Server is waking up, please wait for a minute...", {
+                duration: Infinity,
+            });
+        }, 5000);
+        
         const response = await axiosInstance.post("/users/login", data);
+        
+        clearTimeout(timeoutId);
+        if (toastId) {
+            toast.dismiss(toastId);
+        }
         return response.data.data;
     } catch (error) {
+        clearTimeout(timeoutId);
+        if (toastId) {
+            toast.dismiss(toastId);
+        }
         console.log(error);
         toast.error(error?.response?.data?.error);
         throw error;

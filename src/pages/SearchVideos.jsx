@@ -33,12 +33,12 @@ function SearchVideos() {
         setSearchParms({ sortBy: newSortBy, sortType: newSortType });
     };
 
-    if (videos?.totalDocs === 0) {
-        return <NoVideosFound text={"Try searching something else"} />;
-    }
-
     if (loading) {
         return <HomeSkeleton />;
+    }
+
+    if (!videos || videos?.totalDocs === 0 || videos?.docs?.length === 0) {
+        return <NoVideosFound text={"Try searching something else"} />;
     }
 
     return (
@@ -145,11 +145,11 @@ function SearchVideos() {
                         videos?.docs?.map((video) => (
                             <VideoList
                                 key={video?._id}
-                                thumbnail={video?.thumbnail?.url}
+                                thumbnail={video?.thumbnail}
                                 duration={video?.duration}
                                 title={video?.title}
                                 views={video?.views}
-                                avatar={video?.ownerDetails?.avatar?.url}
+                                avatar={video?.ownerDetails?.avatar?.url || video?.ownerDetails?.avatar}
                                 channelName={video?.ownerDetails?.username}
                                 createdAt={video?.createdAt}
                                 videoId={video?._id}
