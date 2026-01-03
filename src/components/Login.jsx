@@ -43,6 +43,23 @@ function Login() {
                         <Logo />
                     </div>
 
+                    {/* Test Credentials Section */}
+                    <div className="bg-slate-700/50 border border-slate-500 rounded-lg p-4 w-full max-w-md">
+                        <p className="text-sm font-semibold text-purple-400 mb-2">
+                            Test Credentials:
+                        </p>
+                        <div className="text-sm space-y-1">
+                            <p>
+                                <span className="text-gray-300">Username:</span>{" "}
+                                <span className="font-mono text-white">Test</span>
+                            </p>
+                            <p>
+                                <span className="text-gray-300">Password:</span>{" "}
+                                <span className="font-mono text-white">1234567890</span>
+                            </p>
+                        </div>
+                    </div>
+
                     <form
                         onSubmit={handleSubmit(submit)}
                         className="space-y-5 p-2"
